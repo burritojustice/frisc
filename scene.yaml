@@ -1,0 +1,419 @@
+import:
+    # - https://raw.githubusercontent.com/sensescape/xyz-studio-dark/master/scene.yaml
+    # - https://raw.githubusercontent.com/sensescape/xyz-pixel-dark/master/scene.yaml
+    # - https://raw.githubusercontent.com/sensescape/xyz-pixel/master/scene.yaml
+    - https://raw.githubusercontent.com/sensescape/xyz-pixel-pastel/master/scene.yaml
+    # - https://www.nextzen.org/carto/refill-style/refill-style.zip
+    # - https://www.nextzen.org/carto/refill-style/themes/color-gray-gold.zip
+    # # - https://www.nextzen.org/carto/refill-style/themes/color-inverted.zip
+    # - https://s3.amazonaws.com/xyz-demo/data/demo.yaml
+    # - https://www.nextzen.org/carto/refill-style/11/themes/label-4.zip
+    # # - https://www.nextzen.org/carto/refill-style/themes/terrain-shading.zip
+    # - https://www.nextzen.org/carto/refill-style/11/themes/terrain-shading-dark.zip
+
+global:
+    buildings: https://xyz.api.here.com/hub/spaces/HFUJQOp7/tile/web/{z}_{x}_{y}
+
+    token: AGbk_eg5Qdi75xOs4sfsLAA
+    point_zoom: 14
+
+sources:
+    mapzen:
+        type: MVT
+        url: https://xyz.api.here.com/tiles/osmbase/512/all/{z}/{x}/{y}.mvt
+        url_params:
+            access_token: AJW8Q_PjRZSsPfpbcT3yrAA
+
+    _seismic_zones:
+        type: GeoJSON
+        url: https://xyz.api.here.com/hub/spaces/eXeZBI9M/tile/web/{z}_{x}_{y}
+        url_params:
+            # mode: viz
+            access_token: AIF4d3GlR7GGiq-UlVCZcQA          
+            clip: true
+    _soft_story:
+        type: GeoJSON
+        url: https://xyz.api.here.com/hub/spaces/ZUsHiJ83/tile/web/{z}_{x}_{y}
+        url_params:
+            # mode: viz
+            access_token: ADPSLthSTKWa1C9yCmQKEgA          
+            clip: true
+    _soft_story_in_seismic_zones:
+        type: GeoJSON
+        url: https://xyz.api.here.com/hub/spaces/8IGyei3f/tile/web/{z}_{x}_{y}
+        url_params:
+            # mode: viz
+            access_token: AJqnn1nZQEe-ZhS7VJAB-QA          
+            clip: true
+    _footprints:
+        type: GeoJSON
+        url: https://xyz.api.here.com/hub/spaces/8IGyei3f/tile/web/{z}_{x}_{y}
+        url_params:
+            # mode: viz
+            access_token: AJqnn1nZQEe-ZhS7VJAB-QA          
+            clip: true
+            selection: p.hazard,p.hgt_median_m
+      
+#     _here_buildings:
+#         type: GeoJSON
+#         url: global.buildings
+#         url_params:
+#             mode: viz
+#             access_token: global.token
+#             clip: true
+#             selection: '*'
+
+            
+styles:
+    _polygons:
+        base: polygons
+        blend: inlay
+        blend_order: 0
+    _points:
+        base: points
+        blend: overlay
+        blend_order: 1
+    _text:
+        base: text
+        blend: overlay
+        blend_order: 11
+    _lines:
+        base: lines
+        blend: inlay
+        blend_order: 1
+    _lines_low:
+        base: lines
+        blend: inlay
+        blend_order: -2
+    _polygons_inlay:
+        base: polygons
+        blend: inlay
+        blend_order: 0
+    _polygons_overlay:
+        base: polygons
+        blend: overlay
+        blend_order: 1
+        
+layers:
+    # places:
+    #     enabled: false
+    buildings:
+        enabled: false
+    roads:
+        enabled: false
+                        
+    _seismic_zones:
+        enabled: false
+        data: {source: _seismic_zones}
+        # filter: |
+        #     function(){
+        #         if (feature.min_zoom){
+        #             if(feature.min_zoom < $zoom){return true}
+        #             }
+        #         }
+        _outlines:
+            # enabled: false
+            draw:
+                _lines:
+                    # collide: false
+                    color: [0,1,1,0.35]
+                    width: 1px
+                    order: 2000
+        draw:
+            #polygons:
+            _polygons_inlay:
+                interactive: true
+                # collide: false
+                color: |
+                    function(){
+                        var color
+                        if (feature.id > 300){
+                            color = "green"
+                            }
+                        else{color = "brown"}
+                        return color
+                        }
+                # color:  [1,0,1,0.3]
+                # color: global.color_hash
+                width: 2px
+                order: 300
+                # size: 5px
+                # size: |
+                #     function(){
+                #         return 30 - (feature.scalerank * 4)
+                #         }
+                text:
+                    text_source: label
+                    font:
+                        fill: grey
+                        size: 12px
+
+    _soft_story:
+        # filter: {$zoom: {min: global.point_zoom}}
+        # enabled: false
+        data: {source: _soft_story}
+        _compliant:
+            # filter: {status: Non-Compliant}
+            filter: {status: "Work Complete, CFC Issued"}
+            draw:
+                _points:
+                    interactive: true
+                    collide: false
+                    color: [1,0,0,0.0]
+                    # color: |
+                    #     function(){
+                    #         var color = [1,1,0,0.5]
+                    #         if (feature.tier == 2){
+                    #             color = [1,0,0,0.5]
+                    #             }
+                    #         if (feature.tier == 4){
+                    #             color = [0,1,1,0.5]
+                    #             }
+                    #         return color
+                    #         }
+                    # color: [0,0,1,.5]
+                    # size: function(){ return $zoom/2.5 }
+                    size: 12px
+                    outline:
+                        # color: black
+                        color: [0,0,0,0.55]
+                        width: 1px
+                    # text:
+                    #     optional: true
+                    #     text_source: feature.address
+                    #     font:
+                    #         fill: red
+                    #         size: 10px
+                    #         # stroke:
+                    #         #     color: white
+                    #         #     width: 2px
+        _non_compliant:
+            # filter: {status: Non-Compliant}
+            filter: {status: Non-Compliant}
+            draw:
+                _points:
+                    interactive: true
+                    collide: false
+                    color: [1,0,0,0.25]
+                    # color: |
+                    #     function(){
+                    #         var color = [1,1,0,0.5]
+                    #         if (feature.tier == 2){
+                    #             color = [1,0,0,0.5]
+                    #             }
+                    #         if (feature.tier == 4){
+                    #             color = [0,1,1,0.5]
+                    #             }
+                    #         return color
+                    #         }
+                    # color: [0,0,1,.5]
+                    # size: function(){ return $zoom/2.5 }
+                    size: 12px
+                    outline:
+                        # color: black
+                        color: [1,0,0,0.85]
+                        width: 1px
+                    # text:
+                    #     optional: true
+                    #     text_source: feature.address
+                    #     font:
+                    #         fill: red
+                    #         size: 10px
+                    #         # stroke:
+                    #         #     color: white
+                    #         #     width: 2px
+                    
+
+    _soft_story_seismic:
+        # filter: {$zoom: {min: global.point_zoom}}
+        # enabled: false
+        data: {source: _soft_story_in_seismic_zones}
+        _non_compliant:
+            filter: {status: Non-Compliant}
+            draw:
+                _points:
+                    interactive: true
+                    collide: false
+                    color: [1,0,0,.75]
+                    # color: |
+                    #     function(){
+                    #         var color = [1,1,0,0.5]
+                    #         if (feature.tier == 2){
+                    #             color = [1,0,0,0.5]
+                    #             }
+                    #         if (feature.tier == 4){
+                    #             color = [0,1,1,0.5]
+                    #             }
+                    #         return color
+                    #         }
+                    # color: [0,0,1,.5]
+                    # size: function(){ return $zoom/2.5 }
+                    size: 12px
+                    outline:
+                        color: black
+                        # color: [0,0,0,0.25]
+                        width: 1px
+                    text:
+                        optional: true
+                        text_source: address
+                        font:
+                            fill: darkred
+                            size: 10px
+                            stroke:
+                                color: white
+                                width: 3px
+        
+    
+    _footprints:
+        # enabled: false
+        data: {source: _footprints}
+        # filter: |
+        #     function(){
+        #         if (feature.min_zoom){
+        #             if(feature.min_zoom < $zoom){return true}
+        #             }
+        #         }
+        # _glow:
+        #     enabled: false
+        #     draw:
+        #         _lines_low:
+        #             color: [0,0,1,0.25]
+        #             width: 5px
+        #             order: 1900
+        _outlines:
+            # enabled: false
+            draw:
+                _lines:
+                    # color: white
+                    color: [1,1,1,0.5]
+                    width: 1px
+                    order: 3000
+        draw:
+            #polygons:
+            _polygons_inlay:
+                interactive: true
+                color: |
+                    function(){
+                        var color
+                        if (feature.hazard == 'liquefaction'){
+                            color = [0,0,1,.5]
+                            }
+                        else{color = [1,.5,.5,0.5]}
+                        return color
+                        }
+                # color:  [1,0,1,0.3]
+                # color: global.color_hash
+                width: 2px
+                order: 1900
+                
+
+    _xyz_dots:
+        filter: {$geometry: point}
+        enabled: false
+        data: {source: _here}
+        draw:
+            points:
+                interactive: true
+                collide: false
+                color: |
+                    function(){
+                        var color
+                        if (feature.color){
+                            color = feature.color
+                            }
+                        else{color = [1,0,0,0.5]}
+                        return color
+                    }
+                # color: | 
+                #     function(){
+                #         var pi = 3.14159
+                #         var zoom = pi - $zoom/20
+                #         var opacity = Math.cos(zoom)
+                #         return [1,0,0,opacity]
+                #     }
+                size: 6px
+                # size: |
+                #     function(){
+                #         return feature.location.count()
+                #         }
+                text:
+                    # text_source: NUMBER
+                    font:
+                        fill: red
+                        size: 12px
+                        # stroke:
+                        #     color: white
+                        #     width: 2px
+                outline:
+                    color: [1,1,1,0.15]
+                    width: .3px
+    _xyz_lines:
+        filter: {$geometry: line}
+        enabled: false
+        data: {source: _here}
+        draw:
+            _lines:
+                interactive: true
+                # collide: false
+                color: |
+                    function(){
+                        var color
+                        if (feature.color){
+                            color = feature.color
+                            }
+                        else{color = [1,1,0,0.3]}
+                        return color
+                        }
+                width: 4px
+                order: 2000
+                text:
+                    # text_source: NAME
+                    font:
+                        fill: yellow
+                        size: 12px
+                        
+    _xyz_polygons:
+        enabled: false
+        data: {source: _here}
+        # filter: |
+        #     function(){
+        #         if (feature.min_zoom){
+        #             if(feature.min_zoom < $zoom){return true}
+        #             }
+        #         }
+        _outlines:
+            # enabled: false
+            draw:
+                _lines:
+                    # collide: false
+                    color: [0,1,1,0.35]
+                    width: 1px
+                    order: 2000
+        draw:
+            #polygons:
+            _polygons_inlay:
+                interactive: true
+                # collide: false
+                color: |
+                    function(){
+                        var color
+                        if (feature.color){
+                            color = feature.color
+                            }
+                        else{color = [1,0,1,0.3]}
+                        return color
+                        }
+                # color:  [1,0,1,0.3]
+                # color: global.color_hash
+                width: 2px
+                order: 300
+                # size: 5px
+                # size: |
+                #     function(){
+                #         return 30 - (feature.scalerank * 4)
+                #         }
+                text:
+                    text_source: label
+                    font:
+                        fill: grey
+                        size: 12px
