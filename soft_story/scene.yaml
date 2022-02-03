@@ -151,7 +151,7 @@ layers:
                     collide: false
                     color: [1,1,1,0.5]
                     # size: function(){ return $zoom/2.5 }
-                    size: 12px
+                    size: 9px
                     outline:
                         # color: black
                         color: [0,0,0,0.55]
