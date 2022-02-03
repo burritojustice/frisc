@@ -12,7 +12,7 @@ import:
     # - https://www.nextzen.org/carto/refill-style/11/themes/terrain-shading-dark.zip
 
 global:
-    buildings: https://xyz.api.here.com/hub/spaces/HFUJQOp7/tile/web/{z}_{x}_{y}
+#     buildings: false
 
     token: AGbk_eg5Qdi75xOs4sfsLAA
     point_zoom: 14
