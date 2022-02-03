@@ -12,7 +12,6 @@ import:
     # - https://www.nextzen.org/carto/refill-style/11/themes/terrain-shading-dark.zip
 
 global:
-#     buildings: false
 
     token: AGbk_eg5Qdi75xOs4sfsLAA
     point_zoom: 14
@@ -53,15 +52,6 @@ sources:
             access_token: AJqnn1nZQEe-ZhS7VJAB-QA          
             clip: true
             selection: p.hazard,p.hgt_median_m
-      
-#     _here_buildings:
-#         type: GeoJSON
-#         url: global.buildings
-#         url_params:
-#             mode: viz
-#             access_token: global.token
-#             clip: true
-#             selection: '*'
 
             
 styles:
@@ -97,8 +87,8 @@ styles:
 layers:
     # places:
     #     enabled: false
-    buildings:
-        enabled: false
+#     buildings:
+#         enabled: false
 #     roads:
 #         enabled: false
                         
