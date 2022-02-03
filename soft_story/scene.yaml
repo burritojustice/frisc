@@ -149,19 +149,7 @@ layers:
                 _points:
                     interactive: true
                     collide: false
-                    color: [1,0,0,0.0]
-                    # color: |
-                    #     function(){
-                    #         var color = [1,1,0,0.5]
-                    #         if (feature.tier == 2){
-                    #             color = [1,0,0,0.5]
-                    #             }
-                    #         if (feature.tier == 4){
-                    #             color = [0,1,1,0.5]
-                    #             }
-                    #         return color
-                    #         }
-                    # color: [0,0,1,.5]
+                    color: [1,1,1,0.5]
                     # size: function(){ return $zoom/2.5 }
                     size: 12px
                     outline:
