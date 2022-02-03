@@ -161,7 +161,7 @@ layers:
                     #         size: 12px
 
     _soft_story:
-        # filter: {$zoom: {min: global.point_zoom}}
+        filter: {$zoom: {min: 13}}
         # enabled: false
         data: {source: _soft_story}
         _compliant:
@@ -242,6 +242,8 @@ layers:
                     
 
     _soft_story_seismic:
+        filter: {$zoom: {min: 13}}
+
         # filter: {$zoom: {min: global.point_zoom}}
         # enabled: false
         data: {source: _soft_story_in_seismic_zones}
