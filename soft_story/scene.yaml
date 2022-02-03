@@ -2,8 +2,8 @@ import:
     # - https://raw.githubusercontent.com/sensescape/xyz-studio-dark/master/scene.yaml
     # - https://raw.githubusercontent.com/sensescape/xyz-pixel-dark/master/scene.yaml
     # - https://raw.githubusercontent.com/sensescape/xyz-pixel/master/scene.yaml
-    - https://raw.githubusercontent.com/sensescape/xyz-pixel-pastel/master/scene.yaml
-    # - https://www.nextzen.org/carto/refill-style/refill-style.zip
+    # - https://raw.githubusercontent.com/sensescape/xyz-pixel-pastel/master/scene.yaml
+    - https://www.nextzen.org/carto/refill-style/refill-style.zip
     # - https://www.nextzen.org/carto/refill-style/themes/color-gray-gold.zip
     # # - https://www.nextzen.org/carto/refill-style/themes/color-inverted.zip
     # - https://s3.amazonaws.com/xyz-demo/data/demo.yaml
@@ -99,8 +99,8 @@ layers:
     #     enabled: false
     buildings:
         enabled: false
-    roads:
-        enabled: false
+#     roads:
+#         enabled: false
                         
     _seismic_zones:
         enabled: false
