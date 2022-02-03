@@ -12,6 +12,7 @@ import:
     # - https://www.nextzen.org/carto/refill-style/11/themes/terrain-shading-dark.zip
 
 global:
+    # buildings: true
 
     token: AGbk_eg5Qdi75xOs4sfsLAA
     point_zoom: 14
@@ -52,6 +53,15 @@ sources:
             access_token: AJqnn1nZQEe-ZhS7VJAB-QA          
             clip: true
             selection: p.hazard,p.hgt_median_m
+      
+#     _here_buildings:
+#         type: GeoJSON
+#         url: global.buildings
+#         url_params:
+#             mode: viz
+#             access_token: global.token
+#             clip: true
+#             selection: '*'
 
             
 styles:
@@ -87,13 +97,13 @@ styles:
 layers:
     # places:
     #     enabled: false
-#     buildings:
-#         enabled: false
-#     roads:
-#         enabled: false
+    # buildings:
+    #     enabled: false
+    # roads:
+    #     enabled: false
                         
     _seismic_zones:
-        enabled: false
+        # enabled: false
         data: {source: _seismic_zones}
         # filter: |
         #     function(){
@@ -106,50 +116,76 @@ layers:
             draw:
                 _lines:
                     # collide: false
-                    color: [0,1,1,0.35]
-                    width: 1px
-                    order: 2000
-        draw:
-            #polygons:
-            _polygons_inlay:
-                interactive: true
-                # collide: false
-                color: |
-                    function(){
-                        var color
-                        if (feature.id > 300){
-                            color = "green"
+                    # color: [0,1,1,0.35]
+                    color: |
+                        function(){
+                            var color
+                            if (feature.id > 300){
+                                color = "aqua"
+                                }
+                            else{color = "orange"}
+                            return color
                             }
-                        else{color = "brown"}
-                        return color
-                        }
-                # color:  [1,0,1,0.3]
-                # color: global.color_hash
-                width: 2px
-                order: 300
-                # size: 5px
-                # size: |
-                #     function(){
-                #         return 30 - (feature.scalerank * 4)
-                #         }
-                text:
-                    text_source: label
-                    font:
-                        fill: grey
-                        size: 12px
+                    width: 2px
+                    order: 2000
+        _interior:
+            # filter: {$zoom: {max: 15}}
+            # enabled: false
+            draw:
+                #polygons:
+                _polygons_inlay:
+                    interactive: true
+                    # collide: false
+                    color: |
+                        function(){
+                            var color
+                            if (feature.id > 300){
+                                color = "lightblue"
+                                }
+                            else{color = "lightyellow"}
+                            return color
+                            }
+                    # color:  [1,0,1,0.3]
+                    # color: global.color_hash
+                    width: 2px
+                    order: 300
+                    # size: 5px
+                    # size: |
+                    #     function(){
+                    #         return 30 - (feature.scalerank * 4)
+                    #         }
+                    # text:
+                    #     text_source: label
+                    #     font:
+                    #         fill: grey
+                    #         size: 12px
 
     _soft_story:
         # filter: {$zoom: {min: global.point_zoom}}
         # enabled: false
         data: {source: _soft_story}
         _compliant:
-            # filter: {status: Non-Compliant}
-            filter: {status: "Work Complete, CFC Issued"}
+            filter: 
+                all:
+                    - $zoom: {min: 16}
+                    - status: "Work Complete, CFC Issued"
             draw:
                 _points:
                     interactive: true
                     collide: false
                     color: [1,1,1,0.5]
+                    # color: |
+                    #     function(){
+                    #         var color = [1,1,0,0.5]
+                    #         if (feature.tier == 2){
+                    #             color = [1,0,0,0.5]
+                    #             }
+                    #         if (feature.tier == 4){
+                    #             color = [0,1,1,0.5]
+                    #             }
+                    #         return color
+                    #         }
+                    # color: [0,0,1,.5]
                     # size: function(){ return $zoom/2.5 }
                     size: 9px
                     outline:
@@ -166,6 +202,7 @@ layers:
                     #         #     color: white
                     #         #     width: 2px
         _non_compliant:
+            # enabled: false
             # filter: {status: Non-Compliant}
             filter: {status: Non-Compliant}
             draw:
@@ -186,20 +223,22 @@ layers:
                     #         }
                     # color: [0,0,1,.5]
                     # size: function(){ return $zoom/2.5 }
-                    size: 12px
+                    size: |
+                        function(){ return ($zoom/2) }
+                    # size: 12px
                     outline:
                         # color: black
                         color: [1,0,0,0.85]
                         width: 1px
                     # text:
                     #     optional: true
-                    #     text_source: feature.address
+                    #     text_source: property_address
                     #     font:
                     #         fill: red
                     #         size: 10px
-                    #         # stroke:
-                    #         #     color: white
-                    #         #     width: 2px
+                    #         stroke:
+                    #             color: white
+                    #             width: 3px
                     
 
     _soft_story_seismic:
@@ -208,6 +247,7 @@ layers:
         data: {source: _soft_story_in_seismic_zones}
         _non_compliant:
             filter: {status: Non-Compliant}
+            
             draw:
                 _points:
                     interactive: true
@@ -226,25 +266,231 @@ layers:
                     #         }
                     # color: [0,0,1,.5]
                     # size: function(){ return $zoom/2.5 }
-                    size: 12px
+                    size: 10px
                     outline:
-                        color: black
-                        # color: [0,0,0,0.25]
+                        # color: black
+                        color: [0,0,0,0.75]
                         width: 1px
+                    # text:
+                    #     optional: true
+                    #     text_source: address
+                    #     font:
+                    #         fill: darkred
+                    #         size: 10px
+                    #         stroke:
+                    #             color: white
+                    #             width: 3px
+
                     text:
                         optional: true
-                        text_source: address
+                        text_source: |
+                            function(){
+                                if ($zoom > 14){
+                                    return feature.property_address
+                                    }
+                                }
+                            
+                        # text_source: property_address
                         font:
                             fill: darkred
                             size: 10px
                             stroke:
                                 color: white
                                 width: 3px
-        
     
-    _footprints:
+    _here_admins:
+        enabled: false
+        data: {source: _here_admins}
+        _outlines:
+            # enabled: false
+            draw:
+                _lines:
+                    color: |
+                        function(){
+                            return "hsla(" + feature.adminLevel + ", 100%, 30%, .9)"
+                            }
+                    # color: [0,1,1,0.95]
+                    width: 1.25px
+                    order: 2000
+            _glow:
+                # enabled: false
+                filter: 
+                    $id: '20215801'
+                draw:
+                    _lines:
+                        color: [1,0,0,0.25]
+                        width: 3px
+                        order: 2001
+                        outline:
+                            color: [0,0,1,0.15]
+                            width: 1px
+                            
+        _interior:
+#             enabled: false
+            draw:
+                #polygons:
+                _polygons_inlay:
+                    interactive: true
+                    color: |
+                        function(){
+                            return "hsla(" + feature.adminLevel + ", 100%, 50%, .25)"
+                            }
+                    order: adminLevel
+                text:
+                    repeat_distance: 1024px
+                    text_source: |
+                        function(){
+                            // let display = ''
+                            let display_array = []
+                            var nameType = 'names'
+                            // console.log(feature.cartoName)
+                            if (feature[nameType]){
+                                const names = feature.names
+                                for (var i=0; i < names.length; i++) {
+                                    if (names[i].nameType == 'OFFICIAL'){
+                                        if (!display_array.includes(names[i].name)){
+                                            display_array.push(names[i].name)
+                                        }                                    }
+                                    if (names[i].languageCode == 'ENG') {
+                                        if (!display_array.includes(names[i].name)){
+                                            display_array.push(names[i].name)
+                                        }
+                                    }
+                                }
+                            } 
+                            // console.log(display_array.join('/'))
+                            return display_array.sort().join('\n')
+                        }
+                    font:
+                        fill: red
+                        size: function(){return 10/(feature.adminLevel/60)}
+                        # size: 12
+                        stroke:
+                            color: gold
+                            width: 1px
+ 
+                            
+    _here_restrictions:
+        data: {source: _here_restrictions}
+        enabled: false
+        draw:
+            _lines:
+                interactive: true
+                order: 100
+                color: [1,1,1,1]
+                width: 20m
+                outline:
+                    color: |
+                        function(){
+                            let color
+                            let restriction = feature.conditionalAttribute.rdmType
+                            if (restriction == 'PHYSICAL'){
+                                color == [0,0,0,0.5]
+                                }
+                            if (restriction == 'LEGAL'){
+                                color = [0,0,1,0.5]
+                                }
+                            if (restriction == 'LOGICAL'){
+                                color = [0,1,0,0.5]
+                                }
+                            return color
+                        }
+                    # color: [.5,.5,.5,.25]
+                    width: 2px
+                    
+    _here_traffic_signs:
+        enabled: false
+        data: {source: _here_traffic_signs}
+        draw:
+            _points:
+                interactive: true
+                collide: false
+                color: |
+                    function(){
+                        let sign = feature.signType
+                        var color = [0,0,1,0.5]
+                        if (sign == "Stop"){
+                            color = [1,0,0,0.5]
+                            }
+                        if (sign == "Yield"){
+                            color = [1,.5,0,0.5]
+                            }
+                        if (sign == "PedestrianCrossing"){
+                            color = [1,1,0,0.5]
+                            } 
+                        return color
+                        }
+                # color: [0,0,0,0]
+                size: function(){ return $zoom/2.5 }
+                outline:
+                    color: |
+                        function(){
+                            let opacity = (18 - $zoom) / $zoom
+                            return [0,0,0,opacity]
+                        }
+                    color: [0,0,0,0.25]
+                    width: 1px
+                text:
+                    optional: true
+                    text_source: |
+                        function(){
+                            return feature.signType
+                            // return feature.references[0].ids[0]
+                            }
+                    font:
+                        fill: red
+                        size: 10px
+                        # stroke:
+                        #     color: white
+                        #     width: 2px
+    _here_places:
+        filter: {$zoom: {min: global.point_zoom}}
+        enabled: false
+        data: {source: _here_places}
+        draw:
+            _points:
+                interactive: true
+                collide: false
+                color: |
+                    function(){
+                        var color = [0,0,1,0.5]
+                        if (feature.food){
+                            color = [0,1,0,0.5]
+                            }
+                        if (feature.chains){
+                            color = [1,0,0,0.5]
+                            }
+                        return color
+                        }
+                # color: [0,0,1,.5]
+                size: function(){ return $zoom/2.5 }
+                outline:
+                    color: |
+                        function(){
+                            let opacity = ($zoom / 20) /2
+                            return [0,0,0,opacity]
+                        }
+                    # color: [0,0,0,0.25]
+                    width: 1px
+                text:
+                    optional: true
+                    text_source: |
+                        function(){
+                            if (feature.food){
+                                return feature.names[0].name
+                                }
+                            }
+                    font:
+                        fill: red
+                        size: 10px
+                        # stroke:
+                        #     color: white
+                        #     width: 2px
+                    
+    _building_footprints:
         # enabled: false
         data: {source: _footprints}
+        filter: {$zoom: {min: 15}}
         # filter: |
         #     function(){
         #         if (feature.min_zoom){
@@ -276,7 +522,7 @@ layers:
                         if (feature.hazard == 'liquefaction'){
                             color = [0,0,1,.5]
                             }
-                        else{color = [1,.5,.5,0.5]}
+                        else{color = [1,.5,0]}
                         return color
                         }
                 # color:  [1,0,1,0.3]
@@ -284,7 +530,187 @@ layers:
                 width: 2px
                 order: 1900
                 
+    _here_hydrography:
+        enabled: false
+        data: {source: _here_hydrography}
+        _outlines:
+            # enabled: false
+            draw:
+                _lines:
+                    color: [0,1,1,0.25]
+                    width: .5px
+                    order: 2000
+        _interior:
+            # enabled: false
+            draw:
+                _polygons_inlay:
+                    interactive: true
+                    color: |
+                        function(){
+                            var color = [.15,.15,1,.9]
+                            if (feature.cartoTypeName == "River"){
+                                color = [.15,.25,1,.9]
+                                
+                            if (feature.cartoTypeName == "Bay/Harbour"){
+                                color = [.15,.35,1,.9]
+                            }    
+                            }
+                            if (feature.cartoTypeName == "Lake"){
+                                color = [.15,.45,1,.9]
+                            }    
 
+                            return color
+                        }
+                    # color: [0,0,1,0.5]
+                    order: 300
+        # _text:
+        #     draw:
+                text:
+                    repeat_distance: 1024
+                    font:
+                        fill: lightblue
+                        size: 12px
+                        stroke:
+                            color: black
+                            width: 3px }
+                    text_source: |
+                        function(){
+                            let display_array = []
+                            var nameType = 'cartoName'
+                            if (feature[nameType]){
+                                const names = feature[nameType]
+                                for (var i=0; i < names.length; i++) {
+                                    if (names[i].nameType == 'OFFICIAL'){
+                                        if (!display_array.includes(names[i].name)){
+                                            display_array.push(names[i].name)
+                                        }                                    }
+                                    if (names[i].languageCode == 'ENG') {
+                                        if (!display_array.includes(names[i].name)){
+                                            display_array.push(names[i].name)
+                                        }
+                                    }
+                                }
+                            } 
+                            // console.log(display_array.join('/'))
+                            return display_array.sort().join('\n')
+                        }
+                    # text_source: global.text_source(feature,cartoName)
+    _here_cartography:
+        enabled: false
+        data: {source: _here_cartography}
+        _outlines:
+            # enabled: false
+            draw:
+                _lines:
+                    color: [1,1,0,0.95]
+                    width: 1px
+                    order: 2000
+        _interior:
+            # enabled: false
+            draw:
+                _polygons_inlay:
+                    interactive: true
+                    color: [0,.9,0,0.5]
+                    order: 300
+        # _text:
+        #     draw:
+                text:
+                    repeat_distance: 1024
+                    font:
+                        fill: greenyellow
+                        size: 12px
+                        stroke:
+                            color: black
+                            width: 3px
+                    text_source: |
+                       function(){
+                            let display_array = []
+                            var nameType = 'cartoName'
+                            if (feature[nameType]){
+                                const names = feature[nameType]
+                                for (var i=0; i < names.length; i++) {
+                                    if (names[i].nameType == 'OFFICIAL'){
+                                        if (!display_array.includes(names[i].name)){
+                                            display_array.push(names[i].name)
+                                        }                                    }
+                                    if (names[i].languageCode == 'ENG') {
+                                        if (!display_array.includes(names[i].name)){
+                                            display_array.push(names[i].name)
+                                        }
+                                    }
+                                }
+                            } 
+                            // console.log(display_array.join('/'))
+                            return display_array.sort().join('\n')
+                        }
+    _here_land_cover:
+        enabled: false
+        data: {source: _here_land_cover_merged}
+        _outlines:
+            enabled: false
+            draw:
+                _lines:
+                    color: [.5,1,0,0.95]
+                    width: 1px
+                    order: 2000
+        _interior:
+            # enabled: false
+            draw:
+                _polygons_inlay:
+                    interactive: true
+                    color: |
+                        function(){
+                            var color = 'red'
+                                if (feature.cartoType == 300100000){
+                                    color = 'forestgreen'
+                                    color = [0,.65,.1, 0.8]
+                                }
+                                if (feature.cartoType == 900202){
+                                    color = 'green'
+                                    color = [0,.75,.1, 0.8]
+
+                                    }
+                                if (feature.cartoType == 600200000){
+                                    color = 'white'
+                                }
+                                if (feature.cartoType == 400200000){
+                                    color = 'burlywood'
+                                }
+                            return color
+                        }
+                    # color: [0,1,.25,0.5]
+                    order: 300
+        # _text:
+        #     draw:
+                text:
+                    repeat_distance: 1024
+                    font:
+                        fill: yellow
+                        size: 12px
+                        stroke:
+                            color: black
+                            width: 3px
+                    text_source: |
+                       function(){
+                            let display_array = []
+                            var nameType = 'cartoName'
+                            if (feature[nameType]){
+                                const names = feature[nameType]
+                                for (var i=0; i < names.length; i++) {
+                                    if (names[i].nameType == 'OFFICIAL'){
+                                        if (!display_array.includes(names[i].name)){
+                                            display_array.push(names[i].name)
+                                        }                                    }
+                                    if (names[i].languageCode == 'ENG') {
+                                        if (!display_array.includes(names[i].name)){
+                                            display_array.push(names[i].name)
+                                        }
+                                    }
+                                }
+                            } 
+                            // console.log(display_array.join('/'))
+                            return display_array.sort().join('\n')
+                        }
     _xyz_dots:
         filter: {$geometry: point}
         enabled: false
