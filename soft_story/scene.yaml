@@ -105,12 +105,6 @@ layers:
     _seismic_zones:
         # enabled: false
         data: {source: _seismic_zones}
-        # filter: |
-        #     function(){
-        #         if (feature.min_zoom){
-        #             if(feature.min_zoom < $zoom){return true}
-        #             }
-        #         }
         _outlines:
             # enabled: false
             draw:
@@ -145,20 +139,9 @@ layers:
                             else{color = "lightyellow"}
                             return color
                             }
-                    # color:  [1,0,1,0.3]
-                    # color: global.color_hash
                     width: 2px
                     order: 300
-                    # size: 5px
-                    # size: |
-                    #     function(){
-                    #         return 30 - (feature.scalerank * 4)
-                    #         }
-                    # text:
-                    #     text_source: label
-                    #     font:
-                    #         fill: grey
-                    #         size: 12px
+
 
     _soft_story:
         filter: {$zoom: {min: 13}}
@@ -174,17 +157,7 @@ layers:
                     interactive: true
                     collide: false
                     color: [1,1,1,0.5]
-                    # color: |
-                    #     function(){
-                    #         var color = [1,1,0,0.5]
-                    #         if (feature.tier == 2){
-                    #             color = [1,0,0,0.5]
-                    #             }
-                    #         if (feature.tier == 4){
-                    #             color = [0,1,1,0.5]
-                    #             }
-                    #         return color
-                    #         }
+
                     # color: [0,0,1,.5]
                     # size: function(){ return $zoom/2.5 }
                     size: 9px
@@ -192,15 +165,7 @@ layers:
                         # color: black
                         color: [0,0,0,0.55]
                         width: 1px
-                    # text:
-                    #     optional: true
-                    #     text_source: feature.address
-                    #     font:
-                    #         fill: red
-                    #         size: 10px
-                    #         # stroke:
-                    #         #     color: white
-                    #         #     width: 2px
+
         _non_compliant:
             # enabled: false
             # filter: {status: Non-Compliant}
@@ -210,19 +175,6 @@ layers:
                     interactive: true
                     collide: false
                     color: [1,0,0,0.25]
-                    # color: |
-                    #     function(){
-                    #         var color = [1,1,0,0.5]
-                    #         if (feature.tier == 2){
-                    #             color = [1,0,0,0.5]
-                    #             }
-                    #         if (feature.tier == 4){
-                    #             color = [0,1,1,0.5]
-                    #             }
-                    #         return color
-                    #         }
-                    # color: [0,0,1,.5]
-                    # size: function(){ return $zoom/2.5 }
                     size: |
                         function(){ return ($zoom/2) }
                     # size: 12px
@@ -230,265 +182,7 @@ layers:
                         # color: black
                         color: [1,0,0,0.85]
                         width: 1px
-                    # text:
-                    #     optional: true
-                    #     text_source: property_address
-                    #     font:
-                    #         fill: red
-                    #         size: 10px
-                    #         stroke:
-                    #             color: white
-                    #             width: 3px
-                    
 
-    _soft_story_seismic:
-        filter: {$zoom: {min: 13}}
-
-        # filter: {$zoom: {min: global.point_zoom}}
-        # enabled: false
-        data: {source: _soft_story_in_seismic_zones}
-        _non_compliant:
-            filter: {status: Non-Compliant}
-            
-            draw:
-                _points:
-                    interactive: true
-                    collide: false
-                    color: [1,0,0,.75]
-                    # color: |
-                    #     function(){
-                    #         var color = [1,1,0,0.5]
-                    #         if (feature.tier == 2){
-                    #             color = [1,0,0,0.5]
-                    #             }
-                    #         if (feature.tier == 4){
-                    #             color = [0,1,1,0.5]
-                    #             }
-                    #         return color
-                    #         }
-                    # color: [0,0,1,.5]
-                    # size: function(){ return $zoom/2.5 }
-                    size: 10px
-                    outline:
-                        # color: black
-                        color: [0,0,0,0.75]
-                        width: 1px
-                    # text:
-                    #     optional: true
-                    #     text_source: address
-                    #     font:
-                    #         fill: darkred
-                    #         size: 10px
-                    #         stroke:
-                    #             color: white
-                    #             width: 3px
-
-                    text:
-                        optional: true
-                        text_source: |
-                            function(){
-                                if ($zoom > 14){
-                                    return feature.property_address
-                                    }
-                                }
-                            
-                        # text_source: property_address
-                        font:
-                            fill: darkred
-                            size: 10px
-                            stroke:
-                                color: white
-                                width: 3px
-    
-    _here_admins:
-        enabled: false
-        data: {source: _here_admins}
-        _outlines:
-            # enabled: false
-            draw:
-                _lines:
-                    color: |
-                        function(){
-                            return "hsla(" + feature.adminLevel + ", 100%, 30%, .9)"
-                            }
-                    # color: [0,1,1,0.95]
-                    width: 1.25px
-                    order: 2000
-            _glow:
-                # enabled: false
-                filter: 
-                    $id: '20215801'
-                draw:
-                    _lines:
-                        color: [1,0,0,0.25]
-                        width: 3px
-                        order: 2001
-                        outline:
-                            color: [0,0,1,0.15]
-                            width: 1px
-                            
-        _interior:
-#             enabled: false
-            draw:
-                #polygons:
-                _polygons_inlay:
-                    interactive: true
-                    color: |
-                        function(){
-                            return "hsla(" + feature.adminLevel + ", 100%, 50%, .25)"
-                            }
-                    order: adminLevel
-                text:
-                    repeat_distance: 1024px
-                    text_source: |
-                        function(){
-                            // let display = ''
-                            let display_array = []
-                            var nameType = 'names'
-                            // console.log(feature.cartoName)
-                            if (feature[nameType]){
-                                const names = feature.names
-                                for (var i=0; i < names.length; i++) {
-                                    if (names[i].nameType == 'OFFICIAL'){
-                                        if (!display_array.includes(names[i].name)){
-                                            display_array.push(names[i].name)
-                                        }                                    }
-                                    if (names[i].languageCode == 'ENG') {
-                                        if (!display_array.includes(names[i].name)){
-                                            display_array.push(names[i].name)
-                                        }
-                                    }
-                                }
-                            } 
-                            // console.log(display_array.join('/'))
-                            return display_array.sort().join('\n')
-                        }
-                    font:
-                        fill: red
-                        size: function(){return 10/(feature.adminLevel/60)}
-                        # size: 12
-                        stroke:
-                            color: gold
-                            width: 1px
- 
-                            
-    _here_restrictions:
-        data: {source: _here_restrictions}
-        enabled: false
-        draw:
-            _lines:
-                interactive: true
-                order: 100
-                color: [1,1,1,1]
-                width: 20m
-                outline:
-                    color: |
-                        function(){
-                            let color
-                            let restriction = feature.conditionalAttribute.rdmType
-                            if (restriction == 'PHYSICAL'){
-                                color == [0,0,0,0.5]
-                                }
-                            if (restriction == 'LEGAL'){
-                                color = [0,0,1,0.5]
-                                }
-                            if (restriction == 'LOGICAL'){
-                                color = [0,1,0,0.5]
-                                }
-                            return color
-                        }
-                    # color: [.5,.5,.5,.25]
-                    width: 2px
-                    
-    _here_traffic_signs:
-        enabled: false
-        data: {source: _here_traffic_signs}
-        draw:
-            _points:
-                interactive: true
-                collide: false
-                color: |
-                    function(){
-                        let sign = feature.signType
-                        var color = [0,0,1,0.5]
-                        if (sign == "Stop"){
-                            color = [1,0,0,0.5]
-                            }
-                        if (sign == "Yield"){
-                            color = [1,.5,0,0.5]
-                            }
-                        if (sign == "PedestrianCrossing"){
-                            color = [1,1,0,0.5]
-                            } 
-                        return color
-                        }
-                # color: [0,0,0,0]
-                size: function(){ return $zoom/2.5 }
-                outline:
-                    color: |
-                        function(){
-                            let opacity = (18 - $zoom) / $zoom
-                            return [0,0,0,opacity]
-                        }
-                    color: [0,0,0,0.25]
-                    width: 1px
-                text:
-                    optional: true
-                    text_source: |
-                        function(){
-                            return feature.signType
-                            // return feature.references[0].ids[0]
-                            }
-                    font:
-                        fill: red
-                        size: 10px
-                        # stroke:
-                        #     color: white
-                        #     width: 2px
-    _here_places:
-        filter: {$zoom: {min: global.point_zoom}}
-        enabled: false
-        data: {source: _here_places}
-        draw:
-            _points:
-                interactive: true
-                collide: false
-                color: |
-                    function(){
-                        var color = [0,0,1,0.5]
-                        if (feature.food){
-                            color = [0,1,0,0.5]
-                            }
-                        if (feature.chains){
-                            color = [1,0,0,0.5]
-                            }
-                        return color
-                        }
-                # color: [0,0,1,.5]
-                size: function(){ return $zoom/2.5 }
-                outline:
-                    color: |
-                        function(){
-                            let opacity = ($zoom / 20) /2
-                            return [0,0,0,opacity]
-                        }
-                    # color: [0,0,0,0.25]
-                    width: 1px
-                text:
-                    optional: true
-                    text_source: |
-                        function(){
-                            if (feature.food){
-                                return feature.names[0].name
-                                }
-                            }
-                    font:
-                        fill: red
-                        size: 10px
-                        # stroke:
-                        #     color: white
-                        #     width: 2px
-                    
     _building_footprints:
         # enabled: false
         data: {source: _footprints}
