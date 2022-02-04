@@ -105,6 +105,12 @@ layers:
     _seismic_zones:
         # enabled: false
         data: {source: _seismic_zones}
+        # filter: |
+        #     function(){
+        #         if (feature.min_zoom){
+        #             if(feature.min_zoom < $zoom){return true}
+        #             }
+        #         }
         _outlines:
             # enabled: false
             draw:
@@ -120,7 +126,7 @@ layers:
                             else{color = "orange"}
                             return color
                             }
-                    width: 2px
+                    width: [[10,.05px],[15,2px]]
                     order: 2000
         _interior:
             # filter: {$zoom: {max: 15}}
@@ -139,12 +145,24 @@ layers:
                             else{color = "lightyellow"}
                             return color
                             }
-                    width: 2px
+                    # color:  [1,0,1,0.3]
+                    # color: global.color_hash
+                    width: [[10,.25px],[15,2px]]
+                    # width: 2px
                     order: 300
-
+                    # size: 5px
+                    # size: |
+                    #     function(){
+                    #         return 30 - (feature.scalerank * 4)
+                    #         }
+                    # text:
+                    #     text_source: label
+                    #     font:
+                    #         fill: grey
+                    #         size: 12px
 
     _soft_story:
-        filter: {$zoom: {min: 13}}
+        filter: {$zoom: {min: 15}}
         # enabled: false
         data: {source: _soft_story}
         _compliant:
@@ -158,14 +176,27 @@ layers:
                     collide: false
                     color: [1,1,1,0.5]
 
-                    # color: [0,0,1,.5]
-                    # size: function(){ return $zoom/2.5 }
                     size: 9px
                     outline:
                         # color: black
                         color: [0,0,0,0.55]
                         width: 1px
+        _no_cfc_yet:
+            filter: 
+                all:
+                    - $zoom: {min: 16}
+                    - status: "Work Complete, No CFC Issued yet"
+            draw:
+                _points:
+                    interactive: true
+                    collide: false
+                    color: [1,1,0,0.5]
 
+                    size: 9px
+                    outline:
+                        # color: black
+                        color: [0,0,0,0.55]
+                        width: 2px
         _non_compliant:
             # enabled: false
             # filter: {status: Non-Compliant}
@@ -174,32 +205,103 @@ layers:
                 _points:
                     interactive: true
                     collide: false
-                    color: [1,0,0,0.25]
+                    color: [1,0,0,0.75]
+                    # color: |
+                    #     function(){
+                    #         var color = [1,1,0,0.5]
+                    #         if (feature.tier == 2){
+                    #             color = [1,0,0,0.5]
+                    #             }
+                    #         if (feature.tier == 4){
+                    #             color = [0,1,1,0.5]
+                    #             }
+                    #         return color
+                    #         }
+                    # color: [0,0,1,.5]
+                    # size: function(){ return $zoom/2.5 }
                     size: |
-                        function(){ return ($zoom/2) }
+                        function(){ return ($zoom/1.5) }
                     # size: 12px
                     outline:
+                        color: white
                         # color: black
-                        color: [1,0,0,0.85]
-                        width: 1px
+                        # color: [1,0,0,0.85]
+                        width: 2px
+                    # text:
+                    #     optional: true
+                    #     text_source: property_address
+                    #     font:
+                    #         fill: red
+                    #         size: 10px
+                    #         stroke:
+                    #             color: white
+                    #             width: 3px
+                    
 
+    _soft_story_seismic:
+        filter: {$zoom: {min: 13}}
+        # filter: {$zoom: {min: global.point_zoom}}
+        enabled: false
+        data: {source: _soft_story_in_seismic_zones}
+        _non_compliant:
+            filter: {status: Non-Compliant}
+            
+            draw:
+                _points:
+                    interactive: true
+                    collide: false
+                    color: [1,0,0,.75]
+                    # color: |
+                    #     function(){
+                    #         var color = [1,1,0,0.5]
+                    #         if (feature.tier == 2){
+                    #             color = [1,0,0,0.5]
+                    #             }
+                    #         if (feature.tier == 4){
+                    #             color = [0,1,1,0.5]
+                    #             }
+                    #         return color
+                    #         }
+                    # color: [0,0,1,.5]
+                    # size: function(){ return $zoom/2.5 }
+                    size: 10px
+                    outline:
+                        # color: black
+                        color: [0,0,0,0.75]
+                        width: 1px
+                    # text:
+                    #     optional: true
+                    #     text_source: address
+                    #     font:
+                    #         fill: darkred
+                    #         size: 10px
+                    #         stroke:
+                    #             color: white
+                    #             width: 3px
+
+                    text:
+                        optional: true
+                        text_source: |
+                            function(){
+                                if ($zoom > 14){
+                                    return feature.property_address
+                                    }
+                                }
+                            
+                        # text_source: property_address
+                        font:
+                            fill: darkred
+                            size: 10px
+                            stroke:
+                                color: white
+                                width: 3px
+    
+                    
     _building_footprints:
         # enabled: false
         data: {source: _footprints}
         filter: {$zoom: {min: 15}}
-        # filter: |
-        #     function(){
-        #         if (feature.min_zoom){
-        #             if(feature.min_zoom < $zoom){return true}
-        #             }
-        #         }
-        # _glow:
-        #     enabled: false
-        #     draw:
-        #         _lines_low:
-        #             color: [0,0,1,0.25]
-        #             width: 5px
-        #             order: 1900
+
         _outlines:
             # enabled: false
             draw:
@@ -226,187 +328,6 @@ layers:
                 width: 2px
                 order: 1900
                 
-    _here_hydrography:
-        enabled: false
-        data: {source: _here_hydrography}
-        _outlines:
-            # enabled: false
-            draw:
-                _lines:
-                    color: [0,1,1,0.25]
-                    width: .5px
-                    order: 2000
-        _interior:
-            # enabled: false
-            draw:
-                _polygons_inlay:
-                    interactive: true
-                    color: |
-                        function(){
-                            var color = [.15,.15,1,.9]
-                            if (feature.cartoTypeName == "River"){
-                                color = [.15,.25,1,.9]
-                                
-                            if (feature.cartoTypeName == "Bay/Harbour"){
-                                color = [.15,.35,1,.9]
-                            }    
-                            }
-                            if (feature.cartoTypeName == "Lake"){
-                                color = [.15,.45,1,.9]
-                            }    
-
-                            return color
-                        }
-                    # color: [0,0,1,0.5]
-                    order: 300
-        # _text:
-        #     draw:
-                text:
-                    repeat_distance: 1024
-                    font:
-                        fill: lightblue
-                        size: 12px
-                        stroke:
-                            color: black
-                            width: 3px }
-                    text_source: |
-                        function(){
-                            let display_array = []
-                            var nameType = 'cartoName'
-                            if (feature[nameType]){
-                                const names = feature[nameType]
-                                for (var i=0; i < names.length; i++) {
-                                    if (names[i].nameType == 'OFFICIAL'){
-                                        if (!display_array.includes(names[i].name)){
-                                            display_array.push(names[i].name)
-                                        }                                    }
-                                    if (names[i].languageCode == 'ENG') {
-                                        if (!display_array.includes(names[i].name)){
-                                            display_array.push(names[i].name)
-                                        }
-                                    }
-                                }
-                            } 
-                            // console.log(display_array.join('/'))
-                            return display_array.sort().join('\n')
-                        }
-                    # text_source: global.text_source(feature,cartoName)
-    _here_cartography:
-        enabled: false
-        data: {source: _here_cartography}
-        _outlines:
-            # enabled: false
-            draw:
-                _lines:
-                    color: [1,1,0,0.95]
-                    width: 1px
-                    order: 2000
-        _interior:
-            # enabled: false
-            draw:
-                _polygons_inlay:
-                    interactive: true
-                    color: [0,.9,0,0.5]
-                    order: 300
-        # _text:
-        #     draw:
-                text:
-                    repeat_distance: 1024
-                    font:
-                        fill: greenyellow
-                        size: 12px
-                        stroke:
-                            color: black
-                            width: 3px
-                    text_source: |
-                       function(){
-                            let display_array = []
-                            var nameType = 'cartoName'
-                            if (feature[nameType]){
-                                const names = feature[nameType]
-                                for (var i=0; i < names.length; i++) {
-                                    if (names[i].nameType == 'OFFICIAL'){
-                                        if (!display_array.includes(names[i].name)){
-                                            display_array.push(names[i].name)
-                                        }                                    }
-                                    if (names[i].languageCode == 'ENG') {
-                                        if (!display_array.includes(names[i].name)){
-                                            display_array.push(names[i].name)
-                                        }
-                                    }
-                                }
-                            } 
-                            // console.log(display_array.join('/'))
-                            return display_array.sort().join('\n')
-                        }
-    _here_land_cover:
-        enabled: false
-        data: {source: _here_land_cover_merged}
-        _outlines:
-            enabled: false
-            draw:
-                _lines:
-                    color: [.5,1,0,0.95]
-                    width: 1px
-                    order: 2000
-        _interior:
-            # enabled: false
-            draw:
-                _polygons_inlay:
-                    interactive: true
-                    color: |
-                        function(){
-                            var color = 'red'
-                                if (feature.cartoType == 300100000){
-                                    color = 'forestgreen'
-                                    color = [0,.65,.1, 0.8]
-                                }
-                                if (feature.cartoType == 900202){
-                                    color = 'green'
-                                    color = [0,.75,.1, 0.8]
-
-                                    }
-                                if (feature.cartoType == 600200000){
-                                    color = 'white'
-                                }
-                                if (feature.cartoType == 400200000){
-                                    color = 'burlywood'
-                                }
-                            return color
-                        }
-                    # color: [0,1,.25,0.5]
-                    order: 300
-        # _text:
-        #     draw:
-                text:
-                    repeat_distance: 1024
-                    font:
-                        fill: yellow
-                        size: 12px
-                        stroke:
-                            color: black
-                            width: 3px
-                    text_source: |
-                       function(){
-                            let display_array = []
-                            var nameType = 'cartoName'
-                            if (feature[nameType]){
-                                const names = feature[nameType]
-                                for (var i=0; i < names.length; i++) {
-                                    if (names[i].nameType == 'OFFICIAL'){
-                                        if (!display_array.includes(names[i].name)){
-                                            display_array.push(names[i].name)
-                                        }                                    }
-                                    if (names[i].languageCode == 'ENG') {
-                                        if (!display_array.includes(names[i].name)){
-                                            display_array.push(names[i].name)
-                                        }
-                                    }
-                                }
-                            } 
-                            // console.log(display_array.join('/'))
-                            return display_array.sort().join('\n')
-                        }
     _xyz_dots:
         filter: {$geometry: point}
         enabled: false
