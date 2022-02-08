@@ -1,0 +1,298 @@
+import:
+    # - https://raw.githubusercontent.com/sensescape/xyz-studio-dark/master/scene.yaml
+    # - https://raw.githubusercontent.com/sensescape/xyz-pixel-dark/master/scene.yaml
+    - https://raw.githubusercontent.com/sensescape/xyz-pixel/master/scene.yaml
+    # - https://raw.githubusercontent.com/sensescape/xyz-pixel-pastel/master/scene.yaml
+    # - https://www.nextzen.org/carto/refill-style/refill-style.zip
+    # - https://www.nextzen.org/carto/refill-style/themes/color-gray-gold.zip
+    # # - https://www.nextzen.org/carto/refill-style/themes/color-inverted.zip
+    # - https://s3.amazonaws.com/xyz-demo/data/demo.yaml
+    # - https://www.nextzen.org/carto/refill-style/11/themes/label-4.zip
+    # # - https://www.nextzen.org/carto/refill-style/themes/terrain-shading.zip
+    # - https://www.nextzen.org/carto/refill-style/11/themes/terrain-shading-dark.zip
+
+global:
+    # buildings: true
+
+    token: AGbk_eg5Qdi75xOs4sfsLAA
+    block_line: 50
+    block: 49
+    point_zoom: 14
+    density: |
+        function(){
+            var color
+            if (feature.density_sqmi > 60000){
+                color = 'hsl(242,88%,28%)'
+                }
+            else if (feature.density_sqmi > 40000){
+                color = 'hsl(291,85%,34%)'
+                }
+            else if (feature.density_sqmi > 20000){
+                color = 'hsla(24,100%,50%,.75)'
+                }
+            else if (feature.density_sqmi > 10000){
+                color = 'hsl(0,67%,63%)'
+                }
+            else if (feature.density_sqmi > 5000){
+                color = 'hsl(33,97%,60%)'
+                }
+            else{color = 'hsl(47,97%,56%)'}
+
+            return color
+            }
+sources:
+    mapzen:
+        type: MVT
+        url: https://xyz.api.here.com/tiles/osmbase/512/all/{z}/{x}/{y}.mvt
+        url_params:
+            access_token: AJW8Q_PjRZSsPfpbcT3yrAA
+
+    _seismic_zones:
+        type: GeoJSON
+        url: https://xyz.api.here.com/hub/spaces/eXeZBI9M/tile/web/{z}_{x}_{y}
+        url_params:
+            # mode: viz
+            access_token: AIF4d3GlR7GGiq-UlVCZcQA          
+            clip: true
+    _soft_story:
+        type: GeoJSON
+        url: https://xyz.api.here.com/hub/spaces/ZUsHiJ83/tile/web/{z}_{x}_{y}
+        url_params:
+            # mode: viz
+            access_token: ADPSLthSTKWa1C9yCmQKEgA          
+            clip: true
+    _soft_story_in_seismic_zones:
+        type: GeoJSON
+        url: https://xyz.api.here.com/hub/spaces/8IGyei3f/tile/web/{z}_{x}_{y}
+        url_params:
+            # mode: viz
+            access_token: AJqnn1nZQEe-ZhS7VJAB-QA          
+            clip: true
+    _footprints:
+        type: GeoJSON
+        url: https://xyz.api.here.com/hub/spaces/8IGyei3f/tile/web/{z}_{x}_{y}
+        url_params:
+            # mode: viz
+            access_token: AJqnn1nZQEe-ZhS7VJAB-QA          
+            clip: true
+            selection: p.hazard,p.hgt_median_m
+    _block_group_density:
+        type: GeoJSON
+        url: https://xyz.api.here.com/hub/spaces/NN6Y2EzP/tile/web/{z}_{x}_{y}
+        url_params:
+            # mode: viz
+            access_token: ABK50eA-QfK11RJCsUm5_gA
+    _block_group_seismic:
+        type: GeoJSON
+        url: https://xyz.api.here.com/hub/spaces/uscYPGBY/tile/web/{z}_{x}_{y}
+        url_params:
+            # mode: viz
+            access_token: AOxJZzJ7SbSkvw7suyZFjwA
+styles:
+    _polygons:
+        base: polygons
+        blend: inlay
+        blend_order: 0
+    _points:
+        base: points
+        blend: overlay
+        blend_order: 1
+    _text:
+        base: text
+        blend: overlay
+        blend_order: 11
+    _lines:
+        base: lines
+        blend: inlay
+        blend_order: 1
+    _lines_low:
+        base: lines
+        blend: inlay
+        blend_order: -2
+    _polygons_inlay:
+        base: polygons
+        blend: inlay
+        blend_order: 0
+    _polygons_overlay:
+        base: polygons
+        blend: overlay
+        blend_order: 1
+        
+layers:
+    # places:
+    #     enabled: false
+    buildings:
+        enabled: false
+    # roads:
+    #     enabled: false
+    
+
+    _block_groups_all:
+        # enabled: false
+        filter: {$zoom: {max: 15}}
+        data: {source: _block_group_density}
+        _outlines:
+            # enabled: false
+            draw:
+                _lines_low:
+                    # collide: false
+                    color: [0,0,0,0.05]
+                    # color: |
+                    #     function(){
+                    #         var color
+                    #         if (feature.POP10 > 3000){
+                    #             color = "red"
+                    #             }
+                    #         else if (feature.POP10 <3000){color = "orange"}
+                    #         return color
+                    #         }
+                    width: [[10,.05px],[15,2px]]
+                    order: global.block_line
+        _interior:
+            # filter: {$zoom: {max: 15}}
+            # enabled: false
+            draw:
+                #polygons:
+                _polygons_inlay:
+                    interactive: true
+                    color: global.density
+                    width: [[10,.25px],[15,2px]]
+                    order: global.block
+        labels:
+            filter: {$zoom: {min: 16}}
+            draw:
+                text:
+                    optional: true
+                    text_source: pop100
+                    font:
+                        fill: darkred
+                        size: 10px
+                        stroke:
+                            color: white
+                            width: 3px
+
+
+    
+    _block_groups_seismic_hazard:
+        filter: {$zoom: {min: 15}}
+        data: {source: _block_group_seismic}
+        _outlines:
+            # enabled: false
+            draw:
+                _lines_low:
+                    # collide: false
+                    color: [0,0,0,0.15]
+                    # color: |
+                    #     function(){
+                    #         var color
+                    #         if (feature.POP10 > 3000){
+                    #             color = "red"
+                    #             }
+                    #         else if (feature.POP10 <3000){color = "orange"}
+                    #         return color
+                    #         }
+                    width: [[10,.05px],[15,2px]]
+                    order: global.block_line
+        _interior:
+            # filter: {$zoom: {max: 15}}
+            # enabled: false
+            draw:
+                #polygons:
+                _polygons_inlay:
+                    interactive: true
+                    # collide: false
+                    # color: |
+                    #     function(){
+                    #         var color
+                    #         if (feature.pop100 > 1000){
+                    #             color = "red"
+                    #             }
+                    #         else if (feature.pop100 > 500){
+                    #             color = "orange"
+                    #             }
+                    #         else if (feature.pop100 > 100){
+                    #             color = "yellow"
+                    #             }
+                    #         else{color = "lightyellow"}
+                    #         return color
+                    #         }
+                    color: global.density
+                    # color:  [1,0,1,0.3]
+                    width: [[10,.25px],[15,2px]]
+                    # width: 2px
+                    order: global.block
+        labels:
+            filter: {$zoom: {min: 16}}
+            draw:
+                text:
+                    optional: true
+                    text_source: pop100
+                    font:
+                        fill: darkred
+                        size: 10px
+                        stroke:
+                            color: white
+                            width: 3px
+
+    _seismic_zones:
+        filter: {$zoom: {min: 14}}
+        # enabled: false
+        data: {source: _seismic_zones}
+        # filter: |
+        #     function(){
+        #         if (feature.min_zoom){
+        #             if(feature.min_zoom < $zoom){return true}
+        #             }
+        #         }
+        _outlines:
+            # enabled: false
+            draw:
+                lines:
+                    # collide: false
+                    # color: [0,1,1,0.35]
+                    color: |
+                        function(){
+                            var color
+                            if (feature.id > 300){
+                                color = "aqua"
+                                }
+                            else{color = "lightgreen"}
+                            return color
+                            }
+                    width: [[10,.1px],[15,2px]]
+                    order: 50
+                    outline:
+                        color: |
+                            function(){
+                                var color
+                                if (feature.id > 300){
+                                    color = "blue"
+                                    }
+                                else{color = "black"}
+                                return color
+                                }
+                        width: [[10,.05px],[15,1px]]
+        _interior:
+            # filter: {$zoom: {max: 15}}
+            enabled: false
+            draw:
+                #polygons:
+                _polygons_inlay:
+                    interactive: true
+                    # collide: false
+                    color: |
+                        function(){
+                            var color
+                            if (feature.id > 300){
+                                color = "lightblue"
+                                }
+                            else{color = "lightyellow"}
+                            return color
+                            }
+                    # color:  [1,0,1,0.3]
+                    # color: global.color_hash
+                    width: [[10,.25px],[15,2px]]
+                    # width: 2px
+                    order: 70
+
+ 
