@@ -1,4 +1,4 @@
-# San Francisco building footprints and Soft Story properties intersection with seismic hazard zones
+# San Francisco building footprints and Soft Story properties intersecting with seismic hazard zones
 
 ## Approach
 
