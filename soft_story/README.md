@@ -24,8 +24,13 @@ These maps take data from several sources:
 - [map of seismic hazard zones in San Francisco](https://data.sfgov.org/City-Infrastructure/San-Francisco-Seismic-Hazard-Zones/7ahv-68ap)
 - 2020 Census Block geometries with population estimates via [Census Reporter](https://censusreporter.org/user_geo/3f6e12cd367089ec55787de253a4f0ec/)
 
-Static versions of the extracted clipped data sources are all in this repos /data directory.
+Static versions of the extracted clipped data sources are all in this repo's [/data directory](https://github.com/burritojustice/frisc/tree/main/soft_story/data).
 
-Screenshots for posterity, for when these maps eventually break:
+[Screenshots](https://github.com/burritojustice/frisc/tree/main/soft_story/screenshots) for posterity, for [when, like tears in rain, these maps eventually die](https://www.youtube.com/watch?v=QefqJ7YhbWQ).
+
+![soft story gif](https://github.com/burritojustice/frisc/blob/main/soft_story/screenshots/soft_story_seismic_hazards.gif)
+
+![density gif](https://github.com/burritojustice/frisc/blob/main/soft_story/screenshots/pop_density_census_blocks_seismic_hazards_smooth.gif)
+
 
 
