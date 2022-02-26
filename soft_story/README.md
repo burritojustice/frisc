@@ -13,6 +13,7 @@ These maps are served using Tangram and Tilezen vector tiles. Intersections and 
 ## Notes
 
 - Unlike California's seismic hazard zone data, San Francisco's data was not tagged by type of hazard (liquefaction vs landslide). Unfortunately, California's latest dataset [does not yet contain new data for most of San Francisco](https://maps.conservation.ca.gov/cgs/informationwarehouse/regulatorymaps/). However, the feature IDs of the San Francisco dataset show a likely division between landslides (IDs below 300) and liquefaction (IDs above 300), and these seem to match geographic features where these risk are most likely, so we've run with this assumption.
+- Population density for the Census blocks was derived via area calcualtions using QGIS.
 
 
 ## Data sources
