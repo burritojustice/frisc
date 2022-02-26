@@ -21,7 +21,7 @@ global:
     density: |
         function(){
             var color
-            if (feature.density_sqmi > 60000){
+            if (feature.density_sqmi > 80000){
                 color = 'hsl(242,88%,28%)'
                 }
             else if (feature.density_sqmi > 40000){
