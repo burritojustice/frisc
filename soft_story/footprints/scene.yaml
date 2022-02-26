@@ -54,16 +54,7 @@ sources:
             clip: true
             selection: p.hazard,p.hgt_median_m
       
-#     _here_buildings:
-#         type: GeoJSON
-#         url: global.buildings
-#         url_params:
-#             mode: viz
-#             access_token: global.token
-#             clip: true
-#             selection: '*'
 
-            
 styles:
     _polygons:
         base: polygons
@@ -80,7 +71,7 @@ styles:
     _lines:
         base: lines
         blend: inlay
-        blend_order: 1
+        blend_order: 0
     _lines_low:
         base: lines
         blend: inlay
@@ -105,12 +96,7 @@ layers:
     _seismic_zones:
         # enabled: false
         data: {source: _seismic_zones}
-        # filter: |
-        #     function(){
-        #         if (feature.min_zoom){
-        #             if(feature.min_zoom < $zoom){return true}
-        #             }
-        #         }
+
         _outlines:
             # enabled: false
             draw:
@@ -145,21 +131,11 @@ layers:
                             else{color = "lightyellow"}
                             return color
                             }
-                    # color:  [1,0,1,0.3]
-                    # color: global.color_hash
+
                     width: [[10,.25px],[15,2px]]
                     # width: 2px
                     order: 300
-                    # size: 5px
-                    # size: |
-                    #     function(){
-                    #         return 30 - (feature.scalerank * 4)
-                    #         }
-                    # text:
-                    #     text_source: label
-                    #     font:
-                    #         fill: grey
-                    #         size: 12px
+
 
     _soft_story:
         filter: {$zoom: {min: 15}}
