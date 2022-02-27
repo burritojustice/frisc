@@ -1,3 +1,7 @@
+---
+title: San Francisco Soft Story Buildings and Seismic Hazard Zones
+---
+
 # San Francisco building footprints and Soft Story properties intersecting with seismic hazard zones
 
 These slippy maps of San Francisco compare building footprints in seismic hazard zones along with properties tagged in the city's Soft Story Retrofit program. A second map compares population density to seismic hazard zones.
