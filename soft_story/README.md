@@ -1,6 +1,6 @@
 ---
-layout: default
-title: Soft Story
+layout: page
+title: "Soft Story"
 ---
 
 # San Francisco building footprints and Soft Story properties intersecting with seismic hazard zones
