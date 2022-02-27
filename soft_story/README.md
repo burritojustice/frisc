@@ -2,7 +2,7 @@
 
 These slippy maps of San Francisco compare building footprints in seismic hazard zones along with properties tagged in the city's Soft Story Retrofit program. A second map compares population density to seismic hazard zones.
 
-![density and soft story gif](/screenshots/density_and_soft_story.gif)
+![density and soft story gif](screenshots/density_and_soft_story.gif)
 
 The [seismic hazard vs population density map](https://burritojustice.github.io/frisc/soft_story/density) shows all census blocks of San Francisco below map zoom level 14, using a Viridis color palette to show differences in density. It brings in seismic hazard zones at z14, clips out just the census blocks intersection seismic hazard zones at z15, and shows estimated population per block at z16.
 
