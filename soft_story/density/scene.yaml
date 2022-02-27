@@ -18,25 +18,35 @@ global:
     block_line: 50
     block: 49
     point_zoom: 14
+    magma: ['hsl(47,97%,56%)','hsl(33,97%,60%)','hsl(0,67%,63%)','hsl(30,100%,50%)','hsl(291,85%,34%)','hsl(242,88%,28%)']
+    magma_rgb: ['rgb(240, 249, 33)','rgb(253, 180, 47)','rgb(237, 121, 83)','rgb(204, 71, 120)','rgb(156, 23, 158)','rgb(92, 1, 166)','rgb(13, 8, 135)']
+    pop_8: [0,2000,4000,8000,16000,32000,64000,128000]
+    pop: [0,5000,10000,20000,40000,80000]
     density: |
         function(){
             var color
-            if (feature.density_sqmi > 80000){
-                color = 'hsl(242,88%,28%)'
+            // if (feature.density_sqmi > global.pop[7]){
+            //     color = global.magma[7]
+            //     }
+            // else if (feature.density_sqmi > global.pop[6]){
+            //     color = global.magma[6]
+            //     }
+            if (feature.density_sqmi > global.pop[5]){
+                color = global.magma[5]
                 }
-            else if (feature.density_sqmi > 40000){
-                color = 'hsl(291,85%,34%)'
+            else if (feature.density_sqmi > global.pop[4]){
+                color = global.magma[4]
                 }
-            else if (feature.density_sqmi > 20000){
-                color = 'hsla(24,100%,50%,.75)'
+            else if (feature.density_sqmi > global.pop[3]){
+                color = global.magma[3]
                 }
-            else if (feature.density_sqmi > 10000){
-                color = 'hsl(0,67%,63%)'
+            else if (feature.density_sqmi > global.pop[2]){
+                color = global.magma[2]
                 }
-            else if (feature.density_sqmi > 5000){
-                color = 'hsl(33,97%,60%)'
+            else if (feature.density_sqmi > global.pop[1]){
+                color = global.magma[1]
                 }
-            else{color = 'hsl(47,97%,56%)'}
+            else{color = global.magma[0]}
 
             return color
             }
