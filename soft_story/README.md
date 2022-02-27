@@ -31,9 +31,9 @@ Static versions of the extracted clipped data sources are all in this repo's [/d
 
 [Screenshots](https://github.com/burritojustice/frisc/tree/main/soft_story/screenshots) for posterity, for [when, like tears in rain, these maps eventually die](https://www.youtube.com/watch?v=QefqJ7YhbWQ).
 
-![soft story gif](https://github.com/burritojustice/frisc/blob/main/soft_story/screenshots/soft_story_seismic_hazards.gif)
+![soft story gif](screenshots/soft_story_seismic_hazards.gif)
 
-![density gif](https://github.com/burritojustice/frisc/blob/main/soft_story/screenshots/pop_density_census_blocks_seismic_hazards_smooth.gif)
+![density gif](screenshots/pop_density_census_blocks_seismic_hazards_smooth.gif)
 
 
 
