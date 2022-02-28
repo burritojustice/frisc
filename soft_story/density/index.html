@@ -71,9 +71,9 @@
         }
       });
       
-      function makeLegend(config){
+      function makeLegend(){
         var legend = L.control({ position: "bottomleft" });
-        console.log(config.config.global.magma)
+        console.log(config.global.magma)
         legend.onAdd = function(map) {
           var div = L.DomUtil.create("div", "legend");
           div.innerHTML += "<h4>SF pop density</h4>";
