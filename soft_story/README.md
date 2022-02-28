@@ -6,7 +6,7 @@ These slippy maps of San Francisco compare building footprints in seismic hazard
 
 ![density and soft story gif](screenshots/density_and_soft_story.gif)
 
-The [seismic hazard vs population density map](https://burritojustice.github.io/frisc/soft_story/density) shows all census blocks of San Francisco below map zoom level 14, using a Viridis color palette to show differences in density. It brings in seismic hazard zones at z14, clips out just the census blocks intersection seismic hazard zones at z15, and shows estimated population per block at z16.
+The [seismic hazard vs population density map](https://burritojustice.github.io/frisc/soft_story/density) shows all census blocks of San Francisco below map zoom level 14, using a Viridis plasma color palette to show differences in density. It brings in seismic hazard zones at z14, clips out just the census blocks intersection seismic hazard zones at z15, and shows estimated population per block at z16.
 
 The [San Francisco Soft Story map](https://burritojustice.github.io/frisc/soft_story/footprints) shows seismic hazard zones below zoom level 15, with teal/blue for liquefaction and yellow/orange for landslides. At zoom 15, building footprints within seismic hazard zones become visible, along with Soft Story properties with a "Non-Compliant" status are marked as red dots. and at zoom 16, white dots become visible that indicate properties that have been marked as "Work Complete, CFC issued". (There are also a few yellow dots that represent buildings that are "Work Complete, No CFC issued yet".) These San Francisco datasets were accessed at the beginning of February 2022.
 
