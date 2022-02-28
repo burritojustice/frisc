@@ -6,9 +6,18 @@ These slippy maps of San Francisco compare building footprints in seismic hazard
 
 ![density and soft story gif](screenshots/density_and_soft_story.gif)
 
-The [seismic hazard vs population density map](https://burritojustice.github.io/frisc/soft_story/density) shows all census blocks of San Francisco below map zoom level 14, using a Viridis plasma color palette to show differences in density. It brings in seismic hazard zones at z14, clips out just the census blocks intersection seismic hazard zones at z15, and shows estimated population per block at z16.
+The [seismic hazard vs population density map](https://burritojustice.github.io/frisc/soft_story/density) shows 
+- all census blocks of San Francisco below map zoom level 14, using a Viridis plasma color palette to show differences in density
+- it brings in seismic hazard zones at z14 (blue/teal: liquefaction, green: landslide)
+- clips out just the census blocks that intersect seismic hazard zones at z15
+- shows estimated population per block at z16
 
-The [San Francisco Soft Story map](https://burritojustice.github.io/frisc/soft_story/footprints) shows seismic hazard zones below zoom level 15, with teal/blue for liquefaction and yellow/orange for landslides. At zoom 15, building footprints within seismic hazard zones become visible, along with Soft Story properties with a "Non-Compliant" status are marked as red dots. and at zoom 16, white dots become visible that indicate properties that have been marked as "Work Complete, CFC issued". (There are also a few yellow dots that represent buildings that are "Work Complete, No CFC issued yet".) These San Francisco datasets were accessed at the beginning of February 2022.
+The [San Francisco Soft Story map](https://burritojustice.github.io/frisc/soft_story/footprints) shows 
+- seismic hazard zones below zoom level 15, with teal/blue for liquefaction and yellow/orange for landslides
+- at zoom 15, building footprints within seismic hazard zones become visible, along with Soft Story properties with a "Non-Compliant" status are marked as red dots
+- at zoom 16, white dots become visible that indicate properties that have been marked as "Work Complete, CFC issued"
+- there are also a few yellow dots that represent buildings that are "Work Complete, No CFC issued yet".) 
+- these San Francisco datasets were accessed at the beginning of February 2022
 
 These maps are served using Tangram and Tilezen vector tiles. Intersections and density calculations were wrangled in QGIS and data was tiled via HERE Data Hub (formerly known as XYZ). 
 
