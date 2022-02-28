@@ -72,7 +72,7 @@
       
       function makeLegend(x){
         var legend = L.control({ position: "bottomleft" });
-        let x = config
+        config = x
         console.log(x.global.magma)
         legend.onAdd = function(map) {
           var div = L.DomUtil.create("div", "legend");
