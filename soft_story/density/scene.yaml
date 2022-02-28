@@ -18,14 +18,20 @@ global:
     block_line: 50
     block: 49
     point_zoom: 14
-    magma: ['hsl(47,97%,56%)','hsl(33,97%,60%)','hsl(0,67%,63%)','hsl(30,100%,50%)','hsl(291,85%,34%)','hsl(242,88%,28%)']
-    plasma: ['rgb(240, 249, 33)','rgb(252, 166, 54)','rgb(225, 100, 98)','rgb(177, 42, 144)','rgb(106, 0, 168)','rgb(13, 8, 135)']
-    pop_8: [0,2000,4000,8000,16000,32000,64000,128000]
-    pop: [0,5000,10000,20000,40000,80000]
+    plasma: ['rgba(240, 249, 33,0.6)','rgb(254, 189, 42)','rgb(244, 136, 73)','rgb(219, 92, 104)','rgb(184, 50, 137)','rgb(139, 10, 165)','rgb(83, 2, 163)','rgb(13, 8, 135)']
+    plasma_6: ['rgb(240, 249, 33)','rgb(252, 166, 54)','rgb(225, 100, 98)','rgb(177, 42, 144)','rgb(106, 0, 168)','rgb(13, 8, 135)']
+    pop: [0,2000,4000,8000,16000,32000,64000,128000]
+    pop_6: [0,5000,10000,20000,40000,80000]
     density: |
         function(){
             var color
-            if (feature.density_sqmi > global.pop[5]){
+            if (feature.density_sqmi > global.pop[7]){
+                color = global.plasma[7]
+                }
+            else if (feature.density_sqmi > global.pop[6]){
+                color = global.plasma[6]
+                }
+            else if (feature.density_sqmi > global.pop[5]){
                 color = global.plasma[5]
                 }
             else if (feature.density_sqmi > global.pop[4]){
