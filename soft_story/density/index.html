@@ -65,7 +65,8 @@
       var hash = new L.Hash(map);
       
       scene.subscribe({
-        load: makeLegend()
+        load: function ({config}) {
+          makeLegend()
       });
       
       function makeLegend(){
