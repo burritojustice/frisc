@@ -73,7 +73,7 @@
       
       function makeLegend(config){
         var legend = L.control({ position: "bottomleft" });
-        console.log(config)
+        console.log(config.config.global)
         legend.onAdd = function(map) {
           var div = L.DomUtil.create("div", "legend");
           div.innerHTML += "<h4>SF pop density</h4>";
