@@ -59,6 +59,7 @@
         attribution: 'Made for <a href="https://thefrisc.com" target="_blank">The Frisc</a> by @<a href="https://github.com/burritojustice/frisc/soft_story">burritojustice</a> | <a href="https://www.nextzen.org" target="_blank">Nextzen & Tangtram</a> | &copy; OSM contributors </a>'
       });
       layer.addTo(map);
+      var scene = layer.scene;
       map.setView([37.7688, -122.4373], 12);
 
       var hash = new L.Hash(map);
@@ -80,7 +81,7 @@
         return div;
       };
 
-legend.addTo(map);
+      legend.addTo(map);
       
     </script>
   </body>
