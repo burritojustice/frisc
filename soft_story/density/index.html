@@ -74,7 +74,7 @@
         var legend = L.control({ position: "bottomleft" });
         legend.onAdd = function(map) {
           var div = L.DomUtil.create("div", "legend");
-          div.innerHTML += "<h4>SF pop density \n vs seismic hazard</h4>";
+          div.innerHTML += "<h4>SF pop density <br> vs seismic hazard</h4>";
           div.innerHTML += '<i style="background:' + x.config.global.plasma[7] + '"></i><span>128K+/sq.mi</span><br>';
           div.innerHTML += '<i style="background:' + x.config.global.plasma[6] + '"></i><span>64-128K/sq.mi</span><br>';
           div.innerHTML += '<i style="background:' + x.config.global.plasma[5] + '"></i><span>32-64K/sq.mi</span><br>';
