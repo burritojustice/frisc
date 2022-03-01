@@ -39,7 +39,7 @@
         opacity: 0.7;
       }
       
-     .legend l {
+     .legend i.line {
         width: 18px;
         height: 4px;
         float: left;
@@ -91,7 +91,8 @@
           div.innerHTML += '<i style="background:' + x.config.global.plasma[2] + '"></i><span>20-30K/sq.mi</span><br>';
           div.innerHTML += '<i style="background:' + x.config.global.plasma[1] + '"></i><span>10-20K/sq.mi</span><br>';
           div.innerHTML += '<i style="background:' + x.config.global.plasma[0] + '"></i><span>0-10K/sq.mi</span><br>';
-          div.innerHTML += '<l style="background:' + x.config.global.plasma[0] + '"></i><span>0-10K/sq.mi</span><br>';
+          div.innerHTML += '<i style="background:aqua"></i><span>liquefaction</span><br>';
+          div.innerHTML += '<i style="background:orange"></i><span>landslide</span><br>';
           div.innerHTML += '<i class="icon" style="background-image: url(../../images/frisc_red_ball_logo.png);background-repeat: no-repeat;"></i><span><a href="https://thefrisc.com">Learn more!</a></span><br>';
           
           return div;
