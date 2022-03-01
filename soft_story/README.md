@@ -11,6 +11,7 @@ The [seismic hazard vs population density map](https://burritojustice.github.io/
 - it brings in seismic hazard zones at z14 (blue/teal: liquefaction, green: landslide)
 - clips out just the census blocks that intersect seismic hazard zones at z15
 - shows estimated population per block at z16
+- there are 1797 census blocks that intersect seismic hazard zones, for a total of 271,418 people, and 136,680 [housing units](https://www.census.gov/quickfacts/fact/note/US/HSG010219)
 
 The [San Francisco Soft Story map](https://burritojustice.github.io/frisc/soft_story/footprints) shows 
 - seismic hazard zones below zoom level 15, with teal/blue for liquefaction and yellow/orange for landslides
