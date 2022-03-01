@@ -48,11 +48,12 @@
         opacity: 0.7;
       }
      .legend i.dot {
-        width: 10px;
-        height: 10px;
+        width: 14px;
+        height: 14px;
         float: left;
-        margin: 3px 8px 0 0;
+        margin: 2px 10px 0 0;
         opacity: 0.7;
+        border-radius: 50%
       }
       .legend i.icon {
         background-size: 18px;
@@ -87,9 +88,9 @@
         var legend = L.control({ position: "bottomleft" });
         legend.onAdd = function(map) {
           var div = L.DomUtil.create("div", "legend");
-          div.innerHTML += "<h4>SF pop density vs<br>seismic hazard</h4>";
+          div.innerHTML += "<h4>SF Soft Story Buildings vs<br>seismic hazard zones</h4>";
 //           div.innerHTML += '<i style="background:' + x.config.global.plasma[7] + '"></i><span>120K+/sq.mi</span><br>';
-          div.innerHTML += '<i class="dot" style="background:red; border-color:white"></i><span>liquefaction</span><br>';
+          div.innerHTML += '<i class="dot" style="background:red; border-color:white"></i><span>Soft Story </span><br>';
           div.innerHTML += '<i class="line" style="background:white;border-color:black"></i><span>liquefaction</span><br>';
           div.innerHTML += '<i class="line" style="background:orange"></i><span>landslide</span><br>';
           div.innerHTML += '<i class="icon" style="background-image: url(../../images/frisc_red_ball_logo.png);background-repeat: no-repeat;"></i><span><a href="https://thefrisc.com">Learn more!</a></span><br>';
