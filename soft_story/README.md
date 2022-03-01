@@ -2,7 +2,7 @@
 
 These maps accompany [The Frisc's article on Soft Story Buildings](https://thefrisc.com).
 
-These slippy maps of San Francisco compare building footprints in seismic hazard zones along with properties tagged in the city's Soft Story Retrofit program. A second map compares population density to seismic hazard zones.
+These zoomable slippy maps of San Francisco compare [building footprints in seismic hazard zones along with properties tagged in the city's Soft Story Retrofit program](https://burritojustice.github.io/frisc/soft_story/footprints). A second map compares [population density to seismic hazard zones](https://burritojustice.github.io/frisc/soft_story/density).
 
 ![density and soft story gif](screenshots/density_and_soft_story.gif)
 
