@@ -1,6 +1,6 @@
 # San Francisco building footprints and Soft Story properties intersecting with seismic hazard zones
 
-These maps accompany [The Frisc's article on Soft Story Buildings](https://thefrisc.com).
+These maps accompany [The Frisc's article on Soft Story Buildings](https://thefrisc.com/to-recover-from-a-major-earthquake-sf-needs-housing-now-not-just-later-e2de82084be).
 
 These zoomable slippy maps of San Francisco compare [building footprints in seismic hazard zones along with properties tagged in the city's Soft Story Retrofit program](https://burritojustice.github.io/frisc/soft_story/footprints). A second map compares [population density to seismic hazard zones](https://burritojustice.github.io/frisc/soft_story/density).
 
