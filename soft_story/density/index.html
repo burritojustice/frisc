@@ -69,20 +69,20 @@
           makeLegend(e)
         }
       });
-      
+
       function makeLegend(x){
         var legend = L.control({ position: "bottomleft" });
         legend.onAdd = function(map) {
           var div = L.DomUtil.create("div", "legend");
           div.innerHTML += "<h4>SF pop density vs<br>seismic hazard</h4>";
-          div.innerHTML += '<i style="background:' + x.config.global.plasma[7] + '"></i><span>128K+/sq.mi</span><br>';
-          div.innerHTML += '<i style="background:' + x.config.global.plasma[6] + '"></i><span>64-128K/sq.mi</span><br>';
-          div.innerHTML += '<i style="background:' + x.config.global.plasma[5] + '"></i><span>32-64K/sq.mi</span><br>';
-          div.innerHTML += '<i style="background:' + x.config.global.plasma[4] + '"></i><span>16-32K/sq.mi</span><br>';
-          div.innerHTML += '<i style="background:' + x.config.global.plasma[3] + '"></i><span>8-16K/sq.mi</span><br>';
-          div.innerHTML += '<i style="background:' + x.config.global.plasma[2] + '"></i><span>4-8K/sq.mi</span><br>';
-          div.innerHTML += '<i style="background:' + x.config.global.plasma[1] + '"></i><span>2-4K/sq.mi</span><br>';
-          div.innerHTML += '<i style="background:' + x.config.global.plasma[0] + '"></i><span>0-2K/sq.mi</span><br>';
+          div.innerHTML += '<i style="background:' + x.config.global.plasma[7] + '"></i><span>120K+/sq.mi</span><br>';
+          div.innerHTML += '<i style="background:' + x.config.global.plasma[6] + '"></i><span>80-120K/sq.mi</span><br>';
+          div.innerHTML += '<i style="background:' + x.config.global.plasma[5] + '"></i><span>50-80K/sq.mi</span><br>';
+          div.innerHTML += '<i style="background:' + x.config.global.plasma[4] + '"></i><span>40-50K/sq.mi</span><br>';
+          div.innerHTML += '<i style="background:' + x.config.global.plasma[3] + '"></i><span>30-40K/sq.mi</span><br>';
+          div.innerHTML += '<i style="background:' + x.config.global.plasma[2] + '"></i><span>20-30K/sq.mi</span><br>';
+          div.innerHTML += '<i style="background:' + x.config.global.plasma[1] + '"></i><span>10-20K/sq.mi</span><br>';
+          div.innerHTML += '<i style="background:' + x.config.global.plasma[0] + '"></i><span>0-10K/sq.mi</span><br>';
           div.innerHTML += '<i class="icon" style="background-image: url(../../images/frisc_red_ball_logo.png);background-repeat: no-repeat;"></i><span><a href="https://thefrisc.com">Learn more!</a></span><br>';
           
           return div;
