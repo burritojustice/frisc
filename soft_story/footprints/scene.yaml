@@ -138,7 +138,7 @@ layers:
 
 
     _soft_story:
-        filter: {$zoom: {min: 15}}
+        filter: {$zoom: {min: 14}}
         # enabled: false
         data: {source: _soft_story}
         _compliant:
