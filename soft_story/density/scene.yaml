@@ -12,16 +12,15 @@ import:
     # - https://www.nextzen.org/carto/refill-style/11/themes/terrain-shading-dark.zip
 
 global:
-    # buildings: true
-
     token: AGbk_eg5Qdi75xOs4sfsLAA
     block_line: 50
     block: 49
     point_zoom: 14
-    plasma: ['rgba(240, 249, 33,0.6)','rgb(254, 189, 42)','rgb(244, 136, 73)','rgb(219, 92, 104)','rgb(184, 50, 137)','rgb(139, 10, 165)','rgb(83, 2, 163)','rgb(13, 8, 135)']
+    plasma: ['rgb(240, 249, 153)','rgb(254, 189, 42)','rgb(244, 136, 73)','rgb(219, 92, 104)','rgb(184, 50, 137)','rgb(139, 10, 165)','rgb(83, 2, 163)','rgb(13, 8, 135)']
     plasma_6: ['rgb(240, 249, 33)','rgb(252, 166, 54)','rgb(225, 100, 98)','rgb(177, 42, 144)','rgb(106, 0, 168)','rgb(13, 8, 135)']
-    pop: [0,2000,4000,8000,16000,32000,64000,128000]
-    pop_6: [0,5000,10000,20000,40000,80000]
+    pop_exp: [0,2000,4000,8000,16000,32000,64000,128000]
+    pop: [0,10000,20000,30000,50000,80000,120000]
+    pop_: [0,5000,10000,20000,40000,80000,160000]
     density: |
         function(){
             var color
@@ -142,21 +141,12 @@ layers:
         filter: {$zoom: {max: 15}}
         data: {source: _block_group_density}
         _outlines:
-            # enabled: false
+            enabled: false
             draw:
-                _lines_low:
-                    # collide: false
-                    color: [0,0,0,0.05]
-                    # color: |
-                    #     function(){
-                    #         var color
-                    #         if (feature.POP10 > 3000){
-                    #             color = "red"
-                    #             }
-                    #         else if (feature.POP10 <3000){color = "orange"}
-                    #         return color
-                    #         }
-                    width: [[10,.05px],[15,2px]]
+                _lines:
+                    # color: [.5,.5,.5,0.75]
+                    color: [.8,.8,.8,0.3]
+                    width: [[10,.05px],[15,1px]]
                     order: global.block_line
         _interior:
             # filter: {$zoom: {max: 15}}
@@ -192,15 +182,6 @@ layers:
                 _lines_low:
                     # collide: false
                     color: [0,0,0,0.15]
-                    # color: |
-                    #     function(){
-                    #         var color
-                    #         if (feature.POP10 > 3000){
-                    #             color = "red"
-                    #             }
-                    #         else if (feature.POP10 <3000){color = "orange"}
-                    #         return color
-                    #         }
                     width: [[10,.05px],[15,2px]]
                     order: global.block_line
         _interior:
@@ -210,22 +191,6 @@ layers:
                 #polygons:
                 _polygons_inlay:
                     interactive: true
-                    # collide: false
-                    # color: |
-                    #     function(){
-                    #         var color
-                    #         if (feature.pop100 > 1000){
-                    #             color = "red"
-                    #             }
-                    #         else if (feature.pop100 > 500){
-                    #             color = "orange"
-                    #             }
-                    #         else if (feature.pop100 > 100){
-                    #             color = "yellow"
-                    #             }
-                    #         else{color = "lightyellow"}
-                    #         return color
-                    #         }
                     color: global.density
                     # color:  [1,0,1,0.3]
                     width: [[10,.25px],[15,2px]]
@@ -248,12 +213,7 @@ layers:
         filter: {$zoom: {min: 14}}
         # enabled: false
         data: {source: _seismic_zones}
-        # filter: |
-        #     function(){
-        #         if (feature.min_zoom){
-        #             if(feature.min_zoom < $zoom){return true}
-        #             }
-        #         }
+
         _outlines:
             # enabled: false
             draw:
@@ -304,5 +264,3 @@ layers:
                     width: [[10,.25px],[15,2px]]
                     # width: 2px
                     order: 70
-
- 
