@@ -87,7 +87,7 @@ sources:
             selection: p.hazard,p.hgt_median_m
     _block_group_density:
         type: GeoJSON
-        url: https://github.com/burritojustice/frisc/raw/main/soft_story/data/SF%20Census%20block%20density%20tiger%202020%20via%20Census%20Reporter.geojson
+        url: ../data/SF%20Census%20block%20density%20tiger%202020%20via%20Census%20Reporter.geojson
         url_params:
             # mode: viz
             access_token: ABK50eA-QfK11RJCsUm5_gA
