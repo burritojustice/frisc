@@ -51,7 +51,7 @@ global:
             }
 sources:
     mapzen:
-        type: MVT
+        type: TopoJSON
         url: https://tile.nextzen.org/tilezen/vector/v1/all/{z}/{x}/{y}.topojson
         url_params: 
             api_key: DpCrhQqsR2igQPEINRTfcw
