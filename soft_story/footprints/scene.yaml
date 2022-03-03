@@ -31,20 +31,29 @@ sources:
             # mode: viz
             access_token: AIF4d3GlR7GGiq-UlVCZcQA          
             clip: true
+            
     _soft_story:
         type: GeoJSON
-        url: https://xyz.api.here.com/hub/spaces/ZUsHiJ83/tile/web/{z}_{x}_{y}
-        url_params:
-            # mode: viz
-            access_token: ADPSLthSTKWa1C9yCmQKEgA          
-            clip: true
+        url: ../data/San%20Francisco%20Seismic%20Hazard%20Zones.geojson
+        
     _soft_story_in_seismic_zones:
         type: GeoJSON
-        url: https://xyz.api.here.com/hub/spaces/8IGyei3f/tile/web/{z}_{x}_{y}
-        url_params:
-            # mode: viz
-            access_token: AJqnn1nZQEe-ZhS7VJAB-QA          
-            clip: true
+        data/Soft-Story%20Properties%20in%20seismic%20hazard%20zones.geojson
+
+#     _soft_story:
+#         type: GeoJSON
+#         url: https://xyz.api.here.com/hub/spaces/ZUsHiJ83/tile/web/{z}_{x}_{y}
+#         url_params:
+#             # mode: viz
+#             access_token: ADPSLthSTKWa1C9yCmQKEgA          
+#             clip: true
+#     _soft_story_in_seismic_zones:
+#         type: GeoJSON
+#         url: https://xyz.api.here.com/hub/spaces/8IGyei3f/tile/web/{z}_{x}_{y}
+#         url_params:
+#             # mode: viz
+#             access_token: AJqnn1nZQEe-ZhS7VJAB-QA          
+#             clip: true
     _footprints:
         type: GeoJSON
         url: https://xyz.api.here.com/hub/spaces/8IGyei3f/tile/web/{z}_{x}_{y}
