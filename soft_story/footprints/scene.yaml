@@ -38,7 +38,7 @@ sources:
         
     _soft_story_in_seismic_zones:
         type: GeoJSON
-        data/Soft-Story%20Properties%20in%20seismic%20hazard%20zones.geojson
+        url: ../data/Soft-Story%20Properties%20in%20seismic%20hazard%20zones.geojson
 
 #     _soft_story:
 #         type: GeoJSON
