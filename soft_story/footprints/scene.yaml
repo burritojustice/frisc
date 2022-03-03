@@ -19,10 +19,10 @@ global:
 
 sources:
     mapzen:
-        type: MVT
-        url: https://xyz.api.here.com/tiles/osmbase/512/all/{z}/{x}/{y}.mvt
-        url_params:
-            access_token: AJW8Q_PjRZSsPfpbcT3yrAA
+        type: TopoJSON
+        url: https://tile.nextzen.org/tilezen/vector/v1/all/{z}/{x}/{y}.topojson
+        url_params: 
+            api_key: DpCrhQqsR2igQPEINRTfcw
 
     _seismic_zones:
         type: GeoJSON
