@@ -68,11 +68,7 @@ sources:
             clip: true
     _soft_story_in_seismic_zones:
         type: GeoJSON
-        url: https://xyz.api.here.com/hub/spaces/8IGyei3f/tile/web/{z}_{x}_{y}
-        url_params:
-            # mode: viz
-            access_token: AJqnn1nZQEe-ZhS7VJAB-QA          
-            clip: true
+        url: ../data/Soft-Story%20Properties%20in%20seismic%20hazard%20zones.geojson
     _footprints:
         type: GeoJSON
         url: https://xyz.api.here.com/hub/spaces/8IGyei3f/tile/web/{z}_{x}_{y}
