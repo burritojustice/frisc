@@ -30,7 +30,7 @@ sources:
             
     _soft_story:
         type: GeoJSON
-        url: ../data/San%20Francisco%20Seismic%20Hazard%20Zones.geojson
+        url: ../data/Soft-Story%20Properties.geojson
         
     _soft_story_in_seismic_zones:
         type: GeoJSON
