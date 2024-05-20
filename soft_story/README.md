@@ -2,7 +2,9 @@
 
 These maps accompany [The Frisc's article on Soft Story Buildings](https://thefrisc.com/to-recover-from-a-major-earthquake-sf-needs-housing-now-not-just-later-e2de82084be).
 
-These zoomable slippy maps of San Francisco compare [building footprints in seismic hazard zones along with properties tagged in the city's Soft Story Retrofit program](https://burritojustice.github.io/frisc/soft_story/footprints). A second map compares [population density to seismic hazard zones](https://burritojustice.github.io/frisc/soft_story/density).
+These zoomable slippy maps of San Francisco overlays [population density to seismic hazard zones](https://burritojustice.github.io/frisc/soft_story/density).
+
+_Update: HERE unfortunately shut down the Data Hub / XYZ mapping service in 2023, so the map comparing [building footprints in seismic hazard zones along with properties tagged in the city's Soft Story Retrofit program](https://burritojustice.github.io/frisc/soft_story/footprints) is offline until I find a new custom map tile service. Thank god for GIFs..._
 
 ![density and soft story gif](screenshots/density_and_soft_story.gif)
 
