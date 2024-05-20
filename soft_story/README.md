@@ -2,9 +2,7 @@
 
 These maps accompany [The Frisc's article on Soft Story Buildings](https://thefrisc.com/to-recover-from-a-major-earthquake-sf-needs-housing-now-not-just-later-e2de82084be).
 
-One zoomable slippy map of San Francisco overlays [population density to seismic hazard zones](https://burritojustice.github.io/frisc/soft_story/density). The other shows [building footprints in seismic hazard zones along with properties tagged in the city's Soft Story Retrofit program](https://burritojustice.github.io/frisc/soft_story/footprints) 
-
-_Update: HERE unfortunately shut down the Data Hub / XYZ mapping service in 2023, so the building footprints map is not loading until I find a new custom map tile service. Thank god for GIFs..._
+One zoomable slippy map shows [population density to seismic hazard zones](https://burritojustice.github.io/frisc/soft_story/density) and other shows [building footprints in seismic hazard zones along with properties tagged in the city's Soft Story Retrofit program](https://burritojustice.github.io/frisc/soft_story/footprints) 
 
 ![density and soft story gif](screenshots/density_and_soft_story.gif)
 
@@ -17,7 +15,7 @@ The [seismic hazard vs population density map](https://burritojustice.github.io/
 
 The [San Francisco Soft Story map](https://burritojustice.github.io/frisc/soft_story/footprints) shows 
 - seismic hazard zones below zoom level 15, with teal/blue for liquefaction and yellow/orange for landslides
-- at zoom 15, building footprints within seismic hazard zones become visible, along with Soft Story properties with a "Non-Compliant" status are marked as red dots
+- at zoom 15, building footprints within seismic hazard zones become visible _(update: HERE shut down the Data Hub / XYZ endpoint in 2023, so the layer for building outlines within hazard zones is not loading)_ along with Soft Story properties with a "Non-Compliant" status are marked as red dots
 - at zoom 16, white dots become visible that indicate properties that have been marked as "Work Complete, CFC issued"
 - there are also a few yellow dots that represent buildings that are "Work Complete, No CFC issued yet".) 
 - these San Francisco datasets were accessed at the beginning of February 2022
